@@ -63,6 +63,7 @@
               "projects/web/src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/purple-green.css",
               "projects/web/src/styles.scss"
             ],
             "scripts": []
@@ -123,6 +124,7 @@
               "projects/web/src/assets"
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/purple-green.css",
               "projects/web/src/styles.scss"
             ],
             "scripts": []
