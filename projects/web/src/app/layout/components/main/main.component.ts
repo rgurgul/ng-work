@@ -31,8 +31,7 @@ import { StoreCartService } from '../../../services/store-cart.service';
 export class MainComponent {
   private breakpointObserver = inject(BreakpointObserver);
   cartStoreService = inject(StoreCartService);
-  cart$:Observable<any> = this.cartStoreService.getState();
-
+  cart$: Observable<any> = this.cartStoreService.getState().pipe(map(({ length }: any[]) => length));
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
