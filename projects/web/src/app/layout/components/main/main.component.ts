@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { IMenu, MenuComponent, MyLibComponent } from '../../../../../../my-lib/src/public-api';
 import { RouterOutlet } from '@angular/router';
+import { StoreCartService } from '../../../services/store-cart.service';
 
 @Component({
   selector: 'app-main',
@@ -23,11 +24,14 @@ import { RouterOutlet } from '@angular/router';
     MatListModule,
     MatIconModule,
     AsyncPipe,
-    RouterOutlet, MyLibComponent, MenuComponent
+    RouterOutlet, MyLibComponent, MenuComponent,
+    CommonModule
   ]
 })
 export class MainComponent {
   private breakpointObserver = inject(BreakpointObserver);
+  cartStoreService = inject(StoreCartService);
+  cart$:Observable<any> = this.cartStoreService.getState();
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -37,5 +41,6 @@ export class MainComponent {
   menus: IMenu[] = [
     { path: 'pages/items', name: 'items' },
     { path: 'pages/workers', name: 'workers' },
+    { path: 'pages/cart', name: 'cart' },
   ]
 }

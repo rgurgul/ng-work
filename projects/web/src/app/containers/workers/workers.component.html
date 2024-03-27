@@ -3,4 +3,8 @@
 <form #f="ngForm" [formGroup]="form">
     <input class="text-black" formControlName="username">
     {{form.get('username')?.errors|json}}
+
+    <br>
+
+    <lib-superinput formControlName="about"></lib-superinput>
 </form>

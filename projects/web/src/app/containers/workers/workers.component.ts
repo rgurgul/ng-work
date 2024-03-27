@@ -4,11 +4,12 @@ import { AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModu
 import { CommonModule } from '@angular/common';
 import { Observable, debounce, debounceTime, map, of, switchAll, switchMap, timer } from 'rxjs';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { SuperinputComponent } from '../../../../../my-lib/src/lib/components/controls/superinput/superinput.component';
 
 @Component({
   selector: 'app-workers',
   standalone: true,
-  imports: [FormsModule, CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, HttpClientModule, SuperinputComponent],
   templateUrl: './workers.component.html',
   styles: ``
 })
@@ -25,7 +26,8 @@ export class WorkersComponent {
       Validators.required,
       Validators.email,
       WorkersComponent.myValidator
-    ], this.checkUsername.bind(this))
+    ], this.checkUsername.bind(this)),
+    about: new FormControl('dsf<b>czesc</b>')
   })
 
   http = inject(HttpClient);

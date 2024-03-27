@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, InjectionToken, inject } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
+import { Store } from '../utils/store';
 
 export const token: InjectionToken<string> = new InjectionToken('', {
   factory() {
@@ -11,18 +12,25 @@ export const token: InjectionToken<string> = new InjectionToken('', {
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class DataService extends Store<any[]>{
 
+  data$ = super.getState();
   http = inject(HttpClient);
 
   constructor(
     @Inject(token) private token: string
-  ) {}
+  ) {
+    super([]);
+    /* super.getState().subscribe((val) => {
+      console.log("*****",val);
+    }) */
+  }
 
-  fetch(url: string): Observable<any> {
-    return this.http.get(this.token + url)
+  fetch(url: string): void {
+    this.http.get(this.token + url)
       .pipe(
-        map((result: any) => result.data)
-      );
+        map((result: any) => result.data),
+        tap((val) => super.setState(val))
+      ).subscribe();
   }
 }

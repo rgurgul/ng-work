@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { DataGridComponent } from '../../../../../my-lib/src/public-api';
-import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
 import { DataService, token } from '../../services/data.service';
+import { MatButtonModule } from '@angular/material/button';
+import { StoreCartService } from '../../services/store-cart.service';
 
 class Test { }
 @Component({
   selector: 'app-items',
   standalone: true,
-  imports: [CommonModule, DataGridComponent],
+  imports: [CommonModule, DataGridComponent, MatButtonModule],
   templateUrl: './items.component.html',
   styles: ``,
   providers: [
@@ -18,6 +18,13 @@ class Test { }
   ]
 })
 export class ItemsComponent {
+  buyHandler(_t6: any) {
+    this.cartStoreService.updateState(_t6)
+  }
   dataService = inject(DataService);
-  data$ = this.dataService.fetch('items');
+  cartStoreService = inject(StoreCartService);
+  data$ = this.dataService.data$;
+  constructor() {
+    this.dataService.fetch('items');
+  }
 }

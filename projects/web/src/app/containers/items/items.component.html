@@ -2,7 +2,7 @@
 
 <!-- {{ data$ | async | json}} -->
 
-@if (data$ | async; as data) {
+@if (data$| async; as data) {
 
 <app-data-grid [data]="data" [headers]="['lp', 'title', 'image']">
 
@@ -11,6 +11,9 @@
         <td>{{item.title}}</td>
         <td>
             <img [src]="item.imgSrc" alt="x" class="h-10">
+        </td>
+        <td>
+            <button mat-raised-button color="primary" (click)="buyHandler(item)">buy</button>
         </td>
     </ng-template>
 
