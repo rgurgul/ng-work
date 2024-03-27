@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '../utils/store';
 import { CartIDBService } from './idb-storage.service';
-import { of, withLatestFrom } from 'rxjs';
+import { from, of, skip, withLatestFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +22,17 @@ export class StoreCartService extends Store<any[]>{
   ) {
     super([])
 
-    super.getState().subscribe((val: any) => {
-      cartIdbService.update(val)
+    super.getState()
+      .pipe(
+        skip(1)
+      )
+      .subscribe((val: any) => {
+        cartIdbService.update(val)
+      })
+
+    from(cartIdbService.get()).subscribe((val: any) => {
+      super.setState(val || []);
     })
+
   }
 }
