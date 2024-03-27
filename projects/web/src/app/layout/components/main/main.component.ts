@@ -41,5 +41,6 @@ export class MainComponent {
     { path: 'pages/items', name: 'items' },
     { path: 'pages/workers', name: 'workers' },
     { path: 'pages/cart', name: 'cart' },
+    { path: 'pages/flights', name: 'flights' },
   ]
 }
