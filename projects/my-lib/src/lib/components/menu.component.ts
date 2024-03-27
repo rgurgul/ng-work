@@ -11,10 +11,10 @@ export interface IMenu {
     selector: 'lib-menu',
     template: `
   <nav>
-    <ul class="flex space-x-2">
+    <ul class="">
       <li *ngFor="let menu of _menus">
         <a
-          class="rounded px-2 py-1 bg-blue-200"
+          class=" px-2 py-3 bg-blue-200 block text-black uppercase"
           routerLinkActive="bg-blue-400"
           [routerLink]="menu.path">{{menu.name}}</a>
       </li>
